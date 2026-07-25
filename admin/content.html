@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Site Content | Physio CRM</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-brand"><div class="brand-logo-icon">P</div><div>Physio CRM</div></div>
+      <nav class="admin-nav">
+        <a href="/admin/index.html" class="admin-nav-item"><span>📊</span> Dashboard</a>
+        <a href="/admin/leads.html" class="admin-nav-item"><span>📥</span> Patient Leads</a>
+        <a href="/admin/content.html" class="admin-nav-item active"><span>📝</span> Site Content CMS</a>
+        <a href="/admin/media.html" class="admin-nav-item"><span>🖼️</span> Media Storage</a>
+        <a href="/admin/settings.html" class="admin-nav-item"><span>⚙️</span> Practice Settings</a>
+      </nav>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-header">
+        <h1 class="admin-page-title">Website Content Management System (CMS)</h1>
+      </header>
+
+      <div class="admin-content-area">
+        <div class="admin-card">
+          <h2 style="font-size: 1.25rem; margin-bottom: 1.5rem;">Edit Doctor Identity & Practice Info</h2>
+          <form id="siteContentForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Doctor Name</label>
+                <input type="text" id="doctorName" class="form-control" value="Dr. Arti Tanwar">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Professional Title</label>
+                <input type="text" id="doctorTitle" class="form-control" value="Senior Physiotherapist & Rehabilitation Specialist">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Degrees & Certifications</label>
+                <input type="text" id="degrees" class="form-control" value="BPT, MPT (Musculoskeletal & Neuro-Rehabilitation) | 5.0 ★ Google Rated">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="text" id="phone" class="form-control" value="+91 86962 69969">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">WhatsApp Number</label>
+                <input type="text" id="whatsapp" class="form-control" value="918696269969">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="email" class="form-control" value="care@drartitanwar.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Clinic Address</label>
+              <textarea id="address" class="form-control" rows="2">Flat no. G-1, Alkapuri township, plot no. 124-126, Nivaru Rd, Harnathapura, Jhotwara, Jaipur, Rajasthan 302012</textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Doctor Biography</label>
+              <textarea id="bio" class="form-control" rows="4">Dr. Arti Tanwar is a 5.0-star Google rated Senior Physiotherapist in Jaipur, Rajasthan with over 12 years of clinical expertise in post-fracture rehab, stroke recovery, joint pain management, and home physiotherapy care.</textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Google Maps URL / Website</label>
+              <input type="url" id="googleMaps" class="form-control" value="https://maps.google.com/?q=Flat+no.G-1,+Alkapuri+township,+plot+no.+124-126,+Nivaru+Rd,+Harnathapura,+Jhotwara,+Jaipur,+Rajasthan+302012">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg mt-2">Save CMS Changes &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initAdminUI } from "/js/admin-ui.js";
+    import { initContentManager } from "/js/content-manager.js";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initAdminUI();
+      initContentManager();
+    });
+  </script>
+</body>
+</html>

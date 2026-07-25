@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Physio CRM</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-brand" style="justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div class="brand-logo-icon">P</div>
+          <div>Physio CRM Portal</div>
+        </div>
+        <button id="closeSidebarBtn" class="mobile-sidebar-close" aria-label="Close Sidebar">&times;</button>
+      </div>
+
+      <nav class="admin-nav">
+        <a href="/admin/index.html" class="admin-nav-item active">
+          <span>📊</span> Dashboard
+        </a>
+        <a href="/admin/leads.html" class="admin-nav-item">
+          <span>📥</span> Patient Leads <span class="nav-badge" id="sidebarLeadCount">0</span>
+        </a>
+        <a href="/admin/appointments.html" class="admin-nav-item">
+          <span>📅</span> Appointments
+        </a>
+        <a href="/admin/content.html" class="admin-nav-item">
+          <span>📝</span> Site Content CMS
+        </a>
+        <a href="/admin/media.html" class="admin-nav-item">
+          <span>🖼️</span> Media Storage
+        </a>
+        <a href="/admin/settings.html" class="admin-nav-item">
+          <span>⚙️</span> Practice Settings
+        </a>
+        <a href="/index.html" class="admin-nav-item" style="margin-top: 1rem; background-color: rgba(255,255,255,0.08); color: var(--color-white);">
+          <span>🏠</span> Exit to Main Website
+        </a>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <div>
+          <div style="font-size: 0.8rem; font-weight: bold; color: white;" id="adminUserEmail">Admin</div>
+          <div style="font-size: 0.7rem; color: #A0AEC0;">Active Session</div>
+        </div>
+        <button class="btn btn-sm btn-outline js-logout-btn" style="color: white; border-color: rgba(255,255,255,0.2);">Logout</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="admin-main">
+      <header class="admin-header">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="adminSidebarToggle" class="mobile-toggle" aria-label="Toggle Sidebar">&#9776;</button>
+          <h1 class="admin-page-title">Clinic Dashboard & Lead Management</h1>
+        </div>
+        <div class="admin-user-menu">
+          <button id="exportCsvBtn" class="btn btn-sm btn-secondary">📥 Export CSV</button>
+          <a href="/index.html" target="_blank" class="btn btn-sm btn-outline">🌐 View Live Website</a>
+        </div>
+      </header>
+
+      <div class="admin-content-area">
+        <!-- Metrics Row -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-info">
+              <h4>Total Enquiries</h4>
+              <div class="metric-value" id="metricTotalLeads">0</div>
+            </div>
+            <div class="metric-icon">📑</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-info">
+              <h4>New Unread</h4>
+              <div class="metric-value" id="metricNewLeads" style="color: var(--color-forest);">0</div>
+            </div>
+            <div class="metric-icon">⚡</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-info">
+              <h4>Booked Sessions</h4>
+              <div class="metric-value" id="metricBooked" style="color: #2B6CB0;">0</div>
+            </div>
+            <div class="metric-icon">✅</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-info">
+              <h4>Follow-ups Due</h4>
+              <div class="metric-value" id="metricFollowUps" style="color: var(--color-warning);">0</div>
+            </div>
+            <div class="metric-icon">⏰</div>
+          </div>
+        </div>
+
+        <!-- CRM Lead Management Table Card -->
+        <div class="admin-card">
+          <div class="admin-toolbar">
+            <div class="admin-search-box">
+              <span>🔍</span>
+              <input type="text" id="crmSearchInput" placeholder="Search patient name, phone, email or locality...">
+            </div>
+
+            <div class="admin-filter-group">
+              <select id="crmStatusFilter" class="admin-filter-select">
+                <option value="all">All Statuses</option>
+                <option value="new">New</option>
+                <option value="contacted">Contacted</option>
+                <option value="follow_up">Follow-up Needed</option>
+                <option value="booked">Booked</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+
+              <select id="crmTypeFilter" class="admin-filter-select">
+                <option value="all">All Consultation Modes</option>
+                <option value="clinic">Clinic</option>
+                <option value="home_visit">Home Visit</option>
+                <option value="online">Online</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Patient Info</th>
+                  <th>Contact Details</th>
+                  <th>Service Requested</th>
+                  <th>Status</th>
+                  <th>Preferred Slot</th>
+                  <th>Action</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="leadsTableBody">
+                <!-- Dynamically filled by js/crm.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lead Detail Modal / Drawer -->
+  <div class="modal-overlay" id="leadDetailModal">
+    <div class="modal-content" style="max-width: 800px; text-align: left; padding: 2rem;">
+      <button class="modal-close" onclick="document.getElementById('leadDetailModal').classList.remove('active')">&times;</button>
+      <div id="leadDetailContent">
+        <!-- Filled by CRM Drawer JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { initAdminUI } from "/js/admin-ui.js";
+    import { initCRM } from "/js/crm.js";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initAdminUI();
+      initCRM();
+    });
+  </script>
+</body>
+</html>

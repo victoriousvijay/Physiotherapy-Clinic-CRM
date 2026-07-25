@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Storage | Physio CRM</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-brand"><div class="brand-logo-icon">P</div><div>Physio CRM</div></div>
+      <nav class="admin-nav">
+        <a href="/admin/index.html" class="admin-nav-item"><span>📊</span> Dashboard</a>
+        <a href="/admin/leads.html" class="admin-nav-item"><span>📥</span> Patient Leads</a>
+        <a href="/admin/content.html" class="admin-nav-item"><span>📝</span> CMS</a>
+        <a href="/admin/media.html" class="admin-nav-item active"><span>🖼️</span> Media Storage</a>
+        <a href="/admin/settings.html" class="admin-nav-item"><span>⚙️</span> Practice Settings</a>
+      </nav>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-header">
+        <h1 class="admin-page-title">Firebase Storage & Asset Gallery</h1>
+      </header>
+
+      <div class="admin-content-area">
+        <div class="admin-card">
+          <h2 style="font-size: 1.25rem; margin-bottom: 1rem;">Upload Clinic & Service Assets</h2>
+          <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
+            <input type="file" id="mediaFileInput" accept="image/*" class="form-control" style="max-width: 400px;">
+            <button id="mediaUploadBtn" class="btn btn-primary">Upload Image</button>
+          </div>
+
+          <h3 style="font-size: 1rem; margin-bottom: 1rem;">Uploaded Media Assets</h3>
+          <div id="mediaGalleryGrid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+            <div class="card" style="padding: 0.5rem;">
+              <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-sm);" alt="Hero Banner">
+              <div style="font-size: 0.75rem; color: var(--color-muted); margin-top: 0.5rem;">hero_doctor_assessment.jpg</div>
+            </div>
+            <div class="card" style="padding: 0.5rem;">
+              <img src="https://images.unsplash.com/photo-1594824813566-7885a39644d6?auto=format&fit=crop&w=600&q=80" style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-sm);" alt="Doctor Profile">
+              <div style="font-size: 0.75rem; color: var(--color-muted); margin-top: 0.5rem;">doctor_profile_portrait.jpg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initAdminUI } from "/js/admin-ui.js";
+    import { initMediaManager } from "/js/media-manager.js";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initAdminUI();
+      initMediaManager();
+    });
+  </script>
+</body>
+</html>

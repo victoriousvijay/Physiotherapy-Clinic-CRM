@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Physiotherapy CRM</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body" style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem;">
+
+  <div style="width: 100%; max-width: 420px; background-color: var(--color-white); padding: 2.5rem; border-radius: var(--radius-lg); border: 1px solid var(--color-border); box-shadow: var(--shadow-md);">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <div style="width: 48px; height: 48px; background-color: var(--color-forest); color: white; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1rem auto;">P</div>
+      <h1 style="font-size: 1.5rem; font-family: var(--font-sans); font-weight: bold;">Physio Practice CRM</h1>
+      <p style="font-size: 0.85rem; color: var(--color-muted); margin-top: 0.25rem;">Authorized Administrator Sign In</p>
+    </div>
+
+    <form id="adminLoginForm">
+      <div id="loginErrorMsg" style="color: var(--color-error); font-size: 0.85rem; margin-bottom: 1rem; display: none; background-color: var(--color-error-bg); padding: 0.75rem; border-radius: var(--radius-sm);"></div>
+
+      <div class="form-group">
+        <label class="form-label">Admin Email</label>
+        <input type="email" id="adminEmail" class="form-control" placeholder="admin@pulsemotionphysio.com" required value="admin@pulsemotionphysio.com">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div style="position: relative;">
+          <input type="password" id="adminPassword" class="form-control" placeholder="••••••••" required value="Admin@123456">
+          <button type="button" id="togglePasswordBtn" style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: var(--color-muted);">Show</button>
+        </div>
+      </div>
+
+      <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-full mt-4">Sign In to Dashboard &rarr;</button>
+      <a href="/index.html" class="btn btn-outline btn-full mt-2" style="background-color: var(--color-ivory); color: var(--color-ink); border-color: var(--color-border); text-decoration: none;">&larr; Cancel &amp; Return to Home Page</a>
+    </form>
+
+    <div style="margin-top: 1.5rem; padding: 0.85rem; background-color: var(--color-sage-light); border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--color-forest); line-height: 1.5; border: 1px solid var(--color-border);">
+      <strong>Default Admin Credentials:</strong><br>
+      Email: <code>admin@pulsemotionphysio.com</code><br>
+      Password: <code>Admin@123456</code>
+    </div>
+
+    <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--color-muted); text-align: center; line-height: 1.5;">
+      Authorized clinic personnel only.
+    </div>
+  </div>
+
+  <script type="module">
+    import { loginAdmin } from "/js/auth.js";
+
+    const form = document.getElementById('adminLoginForm');
+    const errorMsg = document.getElementById('loginErrorMsg');
+    const toggleBtn = document.getElementById('togglePasswordBtn');
+    const pwdInput = document.getElementById('adminPassword');
+    const submitBtn = document.getElementById('loginSubmitBtn');
+
+    toggleBtn?.addEventListener('click', () => {
+      const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      pwdInput.setAttribute('type', type);
+      toggleBtn.textContent = type === 'password' ? 'Show' : 'Hide';
+    });
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Authenticating...";
+
+      const email = document.getElementById('adminEmail').value.trim();
+      const password = pwdInput.value;
+
+      try {
+        await loginAdmin(email, password);
+        window.location.href = "/admin/index.html";
+      } catch (err) {
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = "Invalid login credentials or unauthorized admin access.";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign In to Dashboard →";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+/* 3D Cursor, Immersive Loader, Page Transitions & Modern Interactive Effects */
+
+/* ----------------------------------
+   1. 3D MODERN CURSOR
+   ---------------------------------- */
+#cursor-dot, #cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease, transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), width 0.25s ease, height 0.25s ease, background-color 0.25s ease;
+  will-change: transform;
+}
+
+#cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-forest);
+  box-shadow: 0 0 10px rgba(47, 107, 138, 0.6);
+}
+
+#cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(47, 107, 138, 0.45);
+  background-color: transparent;
+  box-shadow: 0 0 10px rgba(23, 50, 77, 0.05);
+}
+
+/* Hover active state for cursor */
+body.cursor-hover #cursor-dot {
+  transform: translate(-50%, -50%) scale(1.4);
+  background-color: var(--color-forest);
+  box-shadow: 0 0 14px rgba(47, 107, 138, 0.8);
+}
+
+body.cursor-hover #cursor-ring {
+  width: 48px;
+  height: 48px;
+  border-color: var(--color-forest);
+  background-color: rgba(47, 107, 138, 0.04);
+  box-shadow: 0 4px 16px rgba(23, 50, 77, 0.1);
+}
+
+body.cursor-hover-card #cursor-ring {
+  width: 72px;
+  height: 72px;
+  border-color: rgba(47, 107, 138, 0.8);
+  background-color: rgba(238, 246, 250, 0.25);
+}
+
+/* Disable custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  #cursor-dot, #cursor-ring {
+    display: none !important;
+  }
+}
+
+/* ----------------------------------
+   2. IMMERSIVE LOADER & TRANSITIONS
+   ---------------------------------- */
+.immersive-loader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #17324D 0%, #1c3c5c 50%, #0d1f33 100%);
+  color: #FFFFFF;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1), transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.immersive-loader.fade-out {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+/* Loader Background Ambient Glow */
+.loader-ambient-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(47, 107, 138, 0.4) 0%, rgba(238, 246, 250, 0) 70%);
+  border-radius: 50%;
+  animation: loaderPulse 4s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+.loader-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.loader-logo-ring {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-logo-ring::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px dashed rgba(238, 246, 250, 0.3);
+  animation: spinSlow 12s linear infinite;
+}
+
+.loader-logo-ring::after {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  border: 1px solid rgba(47, 107, 138, 0.3);
+  animation: spinReverse 16s linear infinite;
+}
+
+.loader-mark {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #2F6B8A 0%, #17324D 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.loader-title {
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.loader-subtitle {
+  font-size: 0.85rem;
+  color: #EEF6FA;
+  opacity: 0.8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.loader-bar-wrapper {
+  width: 220px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.loader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2F6B8A 0%, #EEF6FA 100%);
+  border-radius: 4px;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(238, 246, 250, 0.8);
+}
+
+.loader-counter {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #EEF6FA;
+  letter-spacing: 0.05em;
+}
+
+@keyframes loaderPulse {
+  0% { transform: scale(0.85); opacity: 0.5; }
+  100% { transform: scale(1.15); opacity: 0.8; }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Page Transition Out Overlay */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #17324D 0%, #2F6B8A 100%);
+  z-index: 999999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.page-transition-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ----------------------------------
+   3. SCROLL REVEAL & 3D TILT
+   ---------------------------------- */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* 3D Card Perspective Container */
+.card, .service-card, .credential-box, .testimonial-card, .process-step-card {
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Light Sheen Overlay for 3D Tilt */
+.card-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+/* Modern Card Hover Elevation */
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 40px -15px rgba(23, 50, 77, 0.12), 0 0 0 1px rgba(47, 107, 138, 0.2);
+}
+
+/* Ambient Section Glow Meshes */
+.ambient-glow-mesh {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(238, 246, 250, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+  opacity: 0.7;
+}
+
+.ambient-top-right {
+  top: -100px;
+  right: -100px;
+}
+
+.ambient-bottom-left {
+  bottom: -100px;
+  left: -100px;
+}
+
+/* Modern SVG Icon Styling */
+.svg-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.25em;
+  height: 1.25em;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.card-icon-svg {
+  width: 32px;
+  height: 32px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Animated SVG Pulse */
+.icon-pulse {
+  animation: iconPulse 3s infinite ease-in-out;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}

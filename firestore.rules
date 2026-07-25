@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Leads collection: Public can submit requests; only authenticated admins can read and manage
+    match /leads/{leadId} {
+      allow create: if request.resource.data.fullName != null 
+                    && request.resource.data.phone != null;
+      allow read, update, delete: if isAuthenticated();
+
+      match /notes/{noteId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+
+    // Admins collection: Protected admin role records
+    match /admins/{uid} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Public CMS Content: Publicly readable; admin writable
+    match /siteConfig/{document} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /articles/{articleId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /testimonials/{testimonialId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /faqs/{faqId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /activityLogs/{logId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}

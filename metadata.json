@@ -1,0 +1,6 @@
+{
+  "name": "Dr. Sangeeta Arya Tanwar (Dr. Arti Tanwar) Counselling",
+  "description": "Professional counselling and psychology website with CRM lead-management portal for Dr. Sangeeta Arya Tanwar (Dr. Arti Tanwar).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
