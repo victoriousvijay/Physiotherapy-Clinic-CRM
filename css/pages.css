@@ -149,7 +149,7 @@
 
 .page-hero-section .section-subtitle,
 .page-hero-section p {
-  color: #D2E4DE !important;
+  color: #ffffff !important;
 }
 
 .page-hero-section .eyebrow {
@@ -246,7 +246,7 @@
   gap: 0.6rem;
   font-size: var(--text-xs);
   font-weight: var(--weight-medium);
-  color: #D2E4DE;
+  color: #ffffff;
 }
 
 .trust-item-icon {
