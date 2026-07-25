@@ -24,6 +24,25 @@ export function initNavigation() {
       document.body.appendChild(backdrop);
     }
 
+    // Add mobile menu header if not present
+    let mobileHeader = navMenu.querySelector('.mobile-menu-header');
+    if (!mobileHeader) {
+      mobileHeader = document.createElement('div');
+      mobileHeader.className = 'mobile-menu-header';
+      mobileHeader.innerHTML = `
+        <span style="font-family: var(--font-serif); font-weight: 700; font-size: 1.15rem; color: var(--color-ink);">Navigation</span>
+        <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
+      `;
+      navMenu.prepend(mobileHeader);
+      
+      const closeBtn = mobileHeader.querySelector('.mobile-menu-close');
+      closeBtn.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+
     const openMenu = () => {
       navMenu.classList.add('open');
       backdrop.classList.add('open');

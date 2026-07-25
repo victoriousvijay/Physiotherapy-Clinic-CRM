@@ -82,7 +82,9 @@ main {
 }
 
 .section-title {
+  font-family: var(--font-serif);
   font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }

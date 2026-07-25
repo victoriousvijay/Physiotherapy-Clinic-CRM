@@ -127,6 +127,10 @@
   font-size: 1.5rem;
 }
 
+.mobile-menu-header {
+  display: none;
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -645,7 +649,7 @@
 
 .footer h3, .footer h4 {
   color: var(--color-white);
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-weight: var(--weight-semibold);
   margin-bottom: 1.25rem;
 }
