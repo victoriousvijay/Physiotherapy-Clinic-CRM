@@ -3,6 +3,10 @@
 @import url('reset.css');
 @import url('effects.css');
 
+html {
+  scroll-behavior: smooth;
+}
+
 .container {
   width: 100%;
   max-width: var(--max-width);

@@ -17,23 +17,40 @@ export function initNavigation() {
 
   // Mobile menu toggle
   if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
+    let backdrop = document.querySelector('.nav-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'nav-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    const openMenu = () => {
+      navMenu.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeMenu = () => {
+      navMenu.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isOpen = navMenu.classList.contains('open');
       if (isOpen) {
-        navMenu.classList.remove('open');
-        document.body.style.overflow = '';
+        closeMenu();
       } else {
-        navMenu.classList.add('open');
-        document.body.style.overflow = 'hidden';
+        openMenu();
       }
     });
 
+    backdrop.addEventListener('click', closeMenu);
+
     // Close menu when clicking nav link
     navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeMenu);
     });
   }
 
