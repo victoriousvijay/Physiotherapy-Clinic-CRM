@@ -77,7 +77,7 @@
   }
 
   .mobile-menu-header {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: space-between;
     padding-bottom: 1rem;

@@ -128,7 +128,7 @@
 }
 
 .mobile-menu-header {
-  display: none;
+  display: none !important;
 }
 
 /* Buttons */

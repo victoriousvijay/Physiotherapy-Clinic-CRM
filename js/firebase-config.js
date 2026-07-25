@@ -19,9 +19,9 @@ export const app = initializeApp(firebaseConfig);
 // Initialize Firebase Services
 export const auth = getAuth(app);
 
-// Use initializeFirestore with auto-detected long polling for resilient connections
+// Use initializeFirestore with forced long polling for resilient connections in sandbox/iframe/proxy environments
 const firestoreSettings = {
-  experimentalAutoDetectLongPolling: true
+  experimentalForceLongPolling: true
 };
 
 export const db = firebaseConfig.firestoreDatabaseId && firebaseConfig.firestoreDatabaseId !== "(default)"
