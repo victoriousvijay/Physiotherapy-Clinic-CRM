@@ -60,17 +60,20 @@
   .nav-menu {
     position: fixed;
     top: var(--header-height);
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 280px;
+    max-width: 85vw;
     height: calc(100vh - var(--header-height));
     background-color: var(--color-white);
     flex-direction: column;
     align-items: flex-start;
     padding: 2rem 1.5rem;
-    gap: 1.5rem;
+    gap: 1.25rem;
     transform: translateX(100%);
-    transition: transform var(--transition-normal);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 999;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
   }
 
   .nav-menu.open {
